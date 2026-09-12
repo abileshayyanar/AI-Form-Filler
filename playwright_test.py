@@ -3,15 +3,21 @@ from playwright.sync_api import Page, sync_playwright
 
 def inspect_fields():
 
+    # Initialize Playwright and launch a browser using with context manager to ensure proper cleanup
     with sync_playwright() as p:
+        # Launch chromium browser in non-headless mode to see the actions being performed
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
         page.goto("[APPLICATION URL]")
+        # Find all form fields (input, select, textarea) on the page
         fields = page.query_selector_all("input, select, textarea")
 
+        # Initialize empty list to hold fields information
         fields_info = []
         for field in fields:
+            # Create new dictionary to hold info about each field
             field_dict = {}
+            # Populate the dictionary with field attributes if they exist
             if field.get_attribute("id"):
                 field_dict["id"] = field.get_attribute("id")
             if field.get_attribute("name"):
@@ -20,13 +26,29 @@ def inspect_fields():
                 field_dict["type"] = field.get_attribute("type")
             if field.get_attribute("placeholder"):
                 field_dict["placeholder"] = field.get_attribute("placeholder")
+
+            # Get the HTML tag associated with the field
             field_dict["tag"] = field.evaluate("el => el.tagName")
 
+            # Add field info to the list
             fields_info.append(field_dict)
 
         browser.close()
         return fields_info
 
+
 def label_matching(field, page):
-    label[for="{field.get_attribute('id')}"]')
+    field_id = field.get_attribute("id")
+
+    # Check for empty id field and move on to step 2 if it is empty
+    if not field_id:
+        return None
+    
+    label_element = page.query_selector(f'label[for="{field_id}"]')
+
+    if label_element:
+        return label_element.inner_text()
+
+    # Step 2 if step 1 fails: check if the field is wrapped inside a label element
+    
     
