@@ -1,3 +1,5 @@
+from dataclasses import field
+
 from playwright.sync_api import Page, sync_playwright
 
 
@@ -40,15 +42,16 @@ def inspect_fields():
 def label_matching(field, page):
     field_id = field.get_attribute("id")
 
-    # Check for empty id field and move on to step 2 if it is empty
-    if not field_id:
-        return None
-    
-    label_element = page.query_selector(f'label[for="{field_id}"]')
+    # Step 1: Check if there is an explicit label associated with the field using the 'for' attribute
+    if field_id:        
+        label_element = page.query_selector(f'label[for="{field_id}"]')
+        if label_element:
+            return label_element.inner_text()
 
-    if label_element:
-        return label_element.inner_text()
+    # Step 2: If no explicit label is found, check if the field is wrapped inside a label element
+    step_2_label = field.evaluate("el => { const lbl = el.closest('label'); return lbl ? lbl.innerText : null; }")
+    if step_2_label:
+        return step_2_label
 
-    # Step 2 if step 1 fails: check if the field is wrapped inside a label element
-    
+    # Step 3: If still no label is found, check for aria-label or aria-labelledby attributes
     
