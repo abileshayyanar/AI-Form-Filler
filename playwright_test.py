@@ -10,7 +10,7 @@ def inspect_fields():
         # Launch chromium browser in non-headless mode to see the actions being performed
         browser = p.chromium.launch(headless=False)
         page = browser.new_page()
-        page.goto("[APPLICATION URL]")
+        page.goto("https://httpbin.org/forms/post")
         # Find all form fields (input, select, textarea) on the page
         fields = page.query_selector_all("input, select, textarea")
 
@@ -32,10 +32,13 @@ def inspect_fields():
             # Get the HTML tag associated with the field
             field_dict["tag"] = field.evaluate("el => el.tagName")
 
+            label = label_matching(field, page)
+            print(field_dict.get("id"), field_dict.get("name"), "->", label)
             # Add field info to the list
             fields_info.append(field_dict)
 
         browser.close()
+        print(fields_info)
         return fields_info
 
 
@@ -53,5 +56,14 @@ def label_matching(field, page):
     if step_2_label:
         return step_2_label
 
-    # Step 3: If still no label is found, check for aria-label or aria-labelledby attributes
+    # Step 3: If still no label is found, check for aria-label or placeholder attributes
+    step_3_label= field.get_attribute("aria-label")
+    if step_3_label:
+        return step_3_label
+    else:
+        return field.get_attribute("placeholder")
+
+
+if __name__ == "__main__":
+        inspect_fields()
     
