@@ -1,7 +1,7 @@
 from dataclasses import field
-
 from playwright.sync_api import Page, sync_playwright
 
+# Good test URL: https://httpbin.org/forms/post
 
 def inspect_fields():
 
@@ -10,7 +10,7 @@ def inspect_fields():
         # Launch firefox browser in non-headless mode to see the actions being performed
         browser = p.firefox.launch(headless=False)
         page = browser.new_page()
-        page.goto("https://httpbin.org/forms/post")
+        page.goto("[INSERT_URL_HERE]")  # Replace with the actual URL you want to inspect
         # Find all form fields (input, select, textarea) on the page
         fields = page.query_selector_all("input, select, textarea")
 
@@ -32,7 +32,16 @@ def inspect_fields():
             # Get the HTML tag associated with the field
             field_dict["tag"] = field.evaluate("el => el.tagName")
 
+            # Build the selector based on the field's attributes
+            if field_dict.get("id"):
+                field_dict["selector"] = f'#{field_dict["id"]}'
+            else:
+                field_dict["selector"] = f'input[name="{field_dict.get("name")}"]'
+
             label = label_matching(field, page)
+            # Remove whitespace if label is not None
+            if label:
+                label = label.strip()
             print(field_dict.get("id"), field_dict.get("name"), "->", label)
 
             # Check for radio buttons and checkboxes to group them by name and collect their labels
