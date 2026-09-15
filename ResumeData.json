@@ -1,0 +1,181 @@
+{
+  "personal_information": {
+    "full_name": "Abilesh Ayyanar",
+    "location": "Thornton, CO 80241",
+    "phone": "(720) 878-8805",
+    "email": "abileshayyanar01@gmail.com",
+    "linkedin": "linkedin.com/in/abilesh-ayyanar",
+    "github": "github.com/abileshayyanar"
+  },
+  "professional_summary": "Early-career Software Engineer pursuing an M.S. in Software Engineering with a B.S. in Computer Science from Colorado School of Mines. Experience developing software in C++, C, Java, and Python with emphasis on object-oriented programming, data structures, programming languages, software architecture, automated testing, and CI/CD. Hands-on experience with Git/GitHub, GitLab, Linux, Docker, and debugging, with experience developing and testing software components and collaborating across technical and non-technical teams.",
+  "technical_skills": {
+    "languages": [
+      "C++",
+      "C",
+      "Java",
+      "Python",
+      "OCaml",
+      "x86 Assembly"
+    ],
+    "computer_science": [
+      "Object-Oriented Programming",
+      "Data Structures & Algorithms",
+      "Programming Languages",
+      "Software Architecture",
+      "Design Patterns",
+      "Debugging"
+    ],
+    "software_engineering": [
+      "Unit Testing",
+      "Automated Testing",
+      "CI/CD",
+      "Agile Development",
+      "SDLC"
+    ],
+    "tools_and_platforms": [
+      "Git",
+      "GitHub",
+      "GitLab",
+      "Linux",
+      "Bash",
+      "Docker",
+      "Visual Studio",
+      "GitHub Copilot",
+      "Windows"
+    ],
+    "web_and_data": [
+      "SQL",
+      "SQLite",
+      "SQLAlchemy",
+      "Flask",
+      "HTML",
+      "CSS"
+    ],
+    "libraries": [
+      "NumPy",
+      "pandas",
+      "Matplotlib",
+      "Plotly",
+      "SoundDevice"
+    ]
+  },
+  "experience": [
+    {
+      "title": "Software Engineering Intern",
+      "company": "SomnoHealth",
+      "location": "Golden, CO",
+      "start_date": "May 2023",
+      "end_date": "July 2023",
+      "responsibilities": [
+        "Developed Python software to automate processing and analysis of large physiological datasets, reducing manual data-processing effort.",
+        "Investigated software and data-quality issues through systematic testing and debugging of real-world sensor data.",
+        "Collaborated with engineers and domain experts to validate application behavior, evaluate results, and improve software reliability.",
+        "Built visualization and analysis utilities that accelerated troubleshooting and communicated technical findings to non-technical stakeholders."
+      ]
+    },
+    {
+      "title": "Science Teacher",
+      "company": "DSST Green Valley Ranch Middle School",
+      "location": "Denver, CO",
+      "start_date": "July 2025",
+      "end_date": "June 2026",
+      "responsibilities": [
+        "Communicate complex technical and scientific concepts clearly to diverse audiences in a fast-paced, collaborative environment.",
+        "Develop structured plans, evaluate results, and adapt solutions independently based on real-time feedback."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "M.S. Software Engineering Coursework",
+      "technologies": [
+        "Python",
+        "Git",
+        "GitLab",
+        "Linux",
+        "CI/CD"
+      ],
+      "details": [
+        "Designed and implemented object-oriented software components using Factory, Observer, and Strategy design patterns.",
+        "Developed unit tests to validate software requirements, identify defects, and verify expected application behavior.",
+        "Configured GitLab CI/CD pipelines to automatically execute unit tests and validate software changes in a Linux environment.",
+        "Refactored and integrated application components while evaluating architectural trade-offs involving monolithic and microservice designs and inter-service communication."
+      ]
+    },
+    {
+      "name": "Real-Time Physiological Monitoring System",
+      "technologies": [
+        "Python",
+        "NumPy",
+        "Matplotlib",
+        "SoundDevice",
+        "Plotly"
+      ],
+      "details": [
+        "Designed and developed a real-time application to continuously acquire, process, and visualize streaming sensor data under performance constraints.",
+        "Implemented configurable detection and alert logic to identify abnormal events from continuous input data.",
+        "Tested and debugged application behavior under continuous operation, investigating data-processing and runtime issues to improve reliability."
+      ]
+    },
+    {
+      "name": "Weekly Calendar Web Application",
+      "technologies": [
+        "Python",
+        "Flask",
+        "SQLite",
+        "SQLAlchemy",
+        "HTML",
+        "CSS"
+      ],
+      "details": [
+        "Designed and built a full-stack application using modular, object-oriented design with persistent relational storage.",
+        "Implemented complete CRUD functionality and managed iterative development using Git version control."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Science in Software Engineering",
+      "school": "Western Governors University",
+      "expected_graduation": "August 2027",
+      "details": [
+        "Graduate study in software architecture and design, software testing, CI/CD, requirements engineering, Agile development, and software engineering practices."
+      ]
+    },
+    {
+      "degree": "Bachelor of Science in Computer Science",
+      "school": "Colorado School of Mines",
+      "graduation": "May 2024",
+      "relevant_coursework": [
+        "Software Engineering",
+        "Operating Systems",
+        "Data Structures & Algorithms",
+        "Programming Languages",
+        "Database Management",
+        "Linux Systems",
+        "Artificial Intelligence",
+        "Machine Learning"
+      ]
+    }
+  ],
+  "application_assistance": {
+    "target_roles": [
+      "Software Engineer",
+      "Software Developer",
+      "Backend Software Engineer",
+      "DevOps Engineer",
+      "Junior Software Engineer",
+      "Entry-Level Software Engineer"
+    ],
+    "employment_level": "Early-career / entry-level",
+    "work_authorization": null,
+    "sponsorship_required": null,
+    "willing_to_relocate": null,
+    "preferred_work_arrangement": null,
+    "salary_expectation": null
+  },
+  "form_filling_guidance": {
+    "source_of_truth": "Use the resume information above as the source of truth. Do not invent employment dates, skills, credentials, work authorization, salary expectations, sponsorship requirements, or other application answers.",
+    "unknown_fields": "If an application asks for information not contained in this JSON, leave it blank or flag it for manual review rather than guessing."
+  }
+}

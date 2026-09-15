@@ -1,5 +1,6 @@
 from dataclasses import field
 from playwright.sync_api import Page, sync_playwright
+import json
 
 # Good test URL: https://httpbin.org/forms/post
 
@@ -89,5 +90,4 @@ def label_matching(field, page):
 
 
 if __name__ == "__main__":
-        inspect_fields()
-    
+    fields_json = json.dumps(inspect_fields(), indent=4)
