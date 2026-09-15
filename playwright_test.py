@@ -1,6 +1,7 @@
 from dataclasses import field
 from playwright.sync_api import Page, sync_playwright
 import json
+import requests
 
 # Good test URL: https://httpbin.org/forms/post
 
@@ -87,6 +88,19 @@ def label_matching(field, page):
         return step_3_label
     else:
         return field.get_attribute("placeholder")
+
+
+def create_prompt(fields_json, profile_json):
+    # Create a prompt for the AI model using the fields and profile data
+    prompt = f"""
+    You are an AI assistant that helps fill out job application forms based on the user's resume information.
+    Here are the form fields extracted from the webpage:
+    {fields_json}
+
+    Here is the user's profile data:
+    {profile_json}
+    """
+    return prompt
 
 
 if __name__ == "__main__":
