@@ -10,7 +10,7 @@ def inspect_fields():
         # Launch firefox browser in non-headless mode to see the actions being performed
         browser = p.firefox.launch(headless=False)
         page = browser.new_page()
-        page.goto("[INSERT_URL_HERE]")  # Replace with the actual URL you want to inspect
+        page.goto("https://httpbin.org/forms/post")  # Replace with the actual URL you want to inspect
         # Find all form fields (input, select, textarea) on the page
         fields = page.query_selector_all("input, select, textarea")
 
@@ -36,7 +36,7 @@ def inspect_fields():
             if field_dict.get("id"):
                 field_dict["selector"] = f'#{field_dict["id"]}'
             else:
-                field_dict["selector"] = f'input[name="{field_dict.get("name")}"]'
+                field_dict["selector"] = f'{field_dict["tag"].lower()}[name="{field_dict.get("name")}"]'
 
             label = label_matching(field, page)
             # Remove whitespace if label is not None
@@ -44,17 +44,18 @@ def inspect_fields():
                 label = label.strip()
             print(field_dict.get("id"), field_dict.get("name"), "->", label)
 
+            value = field.get_attribute("value")
             # Check for radio buttons and checkboxes to group them by name and collect their labels
             if field_dict.get("type") in ("radio", "checkbox"):
                 # Iterate through each existing entry
                 for existing_entry in fields_info:
                     # If the name matches, append the label to the options list
                     if existing_entry.get("name") == field_dict.get("name"):
-                        existing_entry["options"].append(label)
+                        existing_entry["options"].append({"label": label, "value": value})
                         break
                 # If no existing entry was found, create a new entry with the label in the options list
                 else:
-                    field_dict["options"] = [label]
+                    field_dict["options"] = [{"label": label, "value": value}]
                     fields_info.append(field_dict)        
             else:
                 # Automatically add field info to the list if it's not a radio button or checkbox
