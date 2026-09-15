@@ -7,8 +7,8 @@ def inspect_fields():
 
     # Initialize Playwright and launch a browser using with context manager to ensure proper cleanup
     with sync_playwright() as p:
-        # Launch chromium browser in non-headless mode to see the actions being performed
-        browser = p.chromium.launch(headless=False)
+        # Launch firefox browser in non-headless mode to see the actions being performed
+        browser = p.firefox.launch(headless=False)
         page = browser.new_page()
         page.goto("https://httpbin.org/forms/post")
         # Find all form fields (input, select, textarea) on the page
@@ -34,8 +34,22 @@ def inspect_fields():
 
             label = label_matching(field, page)
             print(field_dict.get("id"), field_dict.get("name"), "->", label)
-            # Add field info to the list
-            fields_info.append(field_dict)
+
+            # Check for radio buttons and checkboxes to group them by name and collect their labels
+            if field_dict.get("type") in ("radio", "checkbox"):
+                # Iterate through each existing entry
+                for existing_entry in fields_info:
+                    # If the name matches, append the label to the options list
+                    if existing_entry.get("name") == field_dict.get("name"):
+                        existing_entry["options"].append(label)
+                        break
+                # If no existing entry was found, create a new entry with the label in the options list
+                else:
+                    field_dict["options"] = [label]
+                    fields_info.append(field_dict)        
+            else:
+                # Automatically add field info to the list if it's not a radio button or checkbox
+                fields_info.append(field_dict)
 
         browser.close()
         print(fields_info)
