@@ -91,3 +91,6 @@ def label_matching(field, page):
 
 if __name__ == "__main__":
     fields_json = json.dumps(inspect_fields(), indent=4)
+    # Read provided JSON file containing profile data as string
+    with open("profile_data.json") as f:
+        profile_json = f.read()
