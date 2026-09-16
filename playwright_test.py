@@ -44,7 +44,6 @@ def inspect_fields():
             # Remove whitespace if label is not None
             if label:
                 label = label.strip()
-            print(field_dict.get("id"), field_dict.get("name"), "->", label)
 
             value = field.get_attribute("value")
             # Check for radio buttons and checkboxes to group them by name and collect their labels
@@ -64,7 +63,6 @@ def inspect_fields():
                 fields_info.append(field_dict)
 
         browser.close()
-        print(fields_info)
         return fields_info
 
 
@@ -93,14 +91,39 @@ def label_matching(field, page):
 def create_prompt(fields_json, profile_json):
     # Create a prompt for the AI model using the fields and profile data
     prompt = f"""
-    You are an AI assistant that helps fill out job application forms based on the user's resume information.
-    Here are the form fields extracted from the webpage:
-    {fields_json}
+    You are filling out a job application form using the applicant's profile data.
 
-    Here is the user's profile data:
+    Below is a list of form fields. Each field has a "selector" (how to target it) and either a "label" (what it's asking for) or, for radio/checkbox groups, a list of "options" with their own labels and values.
+
+    Using the profile data provided, determine the correct value for each field.
+
+    Rules:
+    - Return ONLY a JSON object, no explanation, no markdown formatting, no code fences.
+    - The JSON object's keys must be the exact "selector" strings from the field list.
+    - For plain text/email/tel/textarea fields, the value should be the text to type in.
+    - For radio fields (fields with "type": "radio" and an "options" list), the value must be exactly one "value" from that field's options — never invented text, never the label.
+    - For checkbox fields (fields with "type": "checkbox" and an "options" list), the value must be a list of zero or more "value" strings from that field's options — never invented text, never the label.
+    - If you cannot determine a reasonable value for a field from the profile data, omit that field from the output entirely rather than guessing.
+
+    Profile data:
     {profile_json}
+
+    Form fields:
+    {fields_json}
     """
     return prompt
+
+def send_to_ai_model(prompt):
+    response = requests.post(
+        "http://localhost:11434/api/generate",
+        json={
+            "model": "llama3.1:8b",
+            "prompt": prompt,
+            "stream": False
+        }
+    )
+    print(response.json()["done"])
+    return response.json()["response"]
 
 
 if __name__ == "__main__":
@@ -108,3 +131,12 @@ if __name__ == "__main__":
     # Read provided JSON file containing profile data as string
     with open("profile_data.json") as f:
         profile_json = f.read()
+
+    prompt = create_prompt(fields_json, profile_json)
+    raw_ai_response = send_to_ai_model(prompt)
+    # Clean up AI model's response to ensure valid JSON
+    raw_ai_response = raw_ai_response.strip()
+    raw_ai_response = raw_ai_response.removeprefix("```json")
+    raw_ai_response = raw_ai_response.removesuffix("```")
+    ai_response = json.loads(raw_ai_response)
+    print("AI Model Response:", ai_response)
