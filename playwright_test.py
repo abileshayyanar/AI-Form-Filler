@@ -62,8 +62,7 @@ def inspect_fields():
                 # Automatically add field info to the list if it's not a radio button or checkbox
                 fields_info.append(field_dict)
 
-        browser.close()
-        return fields_info
+        return fields_info, page, browser
 
 
 def label_matching(field, page):
@@ -127,7 +126,8 @@ def send_to_ai_model(prompt):
 
 
 if __name__ == "__main__":
-    fields_json = json.dumps(inspect_fields(), indent=4)
+    fields_info, page, browser = inspect_fields()
+    fields_json = json.dumps(fields_info, indent=4)
     # Read provided JSON file containing profile data as string
     with open("profile_data.json") as f:
         profile_json = f.read()
@@ -140,3 +140,4 @@ if __name__ == "__main__":
     raw_ai_response = raw_ai_response.removesuffix("```")
     ai_response = json.loads(raw_ai_response)
     print("AI Model Response:", ai_response)
+    browser.close()
