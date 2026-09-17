@@ -112,6 +112,7 @@ def create_prompt(fields_json, profile_json):
     """
     return prompt
 
+
 def send_to_ai_model(prompt):
     response = requests.post(
         "http://localhost:11434/api/generate",
@@ -123,6 +124,24 @@ def send_to_ai_model(prompt):
     )
     print(response.json()["done"])
     return response.json()["response"]
+
+
+def fill_form(page, ai_response):
+    for selector, value in ai_response.items():
+        for entry in fields_info:
+            if entry.get("selector") == selector:
+                field_type = entry.get("type")
+                break
+        else:
+            field_type = None
+
+        if isinstance(value, list):
+            for v in value:
+                page.check(f'{selector}[value="{v}"]')
+        elif field_type == "radio":
+            page.check(f'{selector}[value="{value}"]')
+        else:
+            page.fill(selector, value)
 
 
 if __name__ == "__main__":
