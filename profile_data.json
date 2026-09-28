@@ -2,12 +2,12 @@
   "personal_information": {
     "full_name": "Abilesh Ayyanar",
     "location": "Thornton, CO 80241",
-    "phone": "(720) 878-8805",
+    "phone": "7208788805",
     "email": "abileshayyanar01@gmail.com",
     "linkedin": "linkedin.com/in/abilesh-ayyanar",
     "github": "github.com/abileshayyanar"
   },
-  "professional_summary": "Early-career Software Engineer pursuing an M.S. in Software Engineering with a B.S. in Computer Science from Colorado School of Mines. Experience developing software in C++, C, Java, and Python with emphasis on object-oriented programming, data structures, programming languages, software architecture, automated testing, and CI/CD. Hands-on experience with Git/GitHub, GitLab, Linux, Docker, and debugging, with experience developing and testing software components and collaborating across technical and non-technical teams.",
+  "professional_summary": "Early-career Software Engineer pursuing an M.S. in Software Engineering with a B.S. in Computer Science from Colorado School of Mines. Experience developing, testing, debugging, and maintaining software in Python and Java, with a strong foundation in object-oriented programming, software architecture, databases, and SDLC practices. Hands-on experience with Git/GitLab, CI/CD, automated testing, Agile development, and troubleshooting real-world data-processing systems",
   "technical_skills": {
     "languages": [
       "C++",
@@ -15,7 +15,8 @@
       "Java",
       "Python",
       "OCaml",
-      "x86 Assembly"
+      "x86 Assembly",
+      "R"
     ],
     "computer_science": [
       "Object-Oriented Programming",
@@ -121,15 +122,15 @@
       "name": "Weekly Calendar Web Application",
       "technologies": [
         "Python",
-        "Flask",
-        "SQLite",
-        "SQLAlchemy",
-        "HTML",
-        "CSS"
+        "Playwright",
+        "Ollama",
+        "Llama 3.1",
+        "JSON"
       ],
       "details": [
-        "Designed and built a full-stack application using modular, object-oriented design with persistent relational storage.",
-        "Implemented complete CRUD functionality and managed iterative development using Git version control."
+        "Built a local browser automation application using Python and Playwright to inspect and process web forms.",
+        "Designed a multi-strategy DOM parsing pipeline using labels, nested elements, ARIA attributes, and placeholders to identify form fields.",
+        "Implemented JSON-based data mapping and validation to exchange structured form data with a locally hosted LLM and verify generated field values."
       ]
     }
   ],
